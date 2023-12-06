@@ -106,11 +106,8 @@ class SockGet:
         return response.decode().split('\r\n\r\n')[1]
 
 
-def main():
-    url = input("Введите ссылку на страницу: ")
+def start(url, method, timeout, more):
     req = SockGet()
-    method = int(input("Введите метод(GET = 1|POST = 0): "))
-    timeout = int(input("Введите время ожидания ответа: "))
     if method:
         ex = req.get(url=url, timeout=timeout)
         if ex:
@@ -119,18 +116,16 @@ def main():
         if req.status_code == 200:
             print(req.status_code)
             print(req.headers)
+            save_in_file(url, req.headers)
         else:
             print(f"Status Code: {req.status_code}")
     else:
         data = dict()
-        print('Введите заголовок и значения(для завершения ввода введите "_"): ')
-        while True:
-            inp = input()
-            if inp == "_":
-                break
-            inp = inp.split()
-            key = inp[0]
-            value = inp[1:]
+        more = more.split('_')
+        for i in more:
+            g = i.split()
+            key = g[0]
+            value = g[1:]
             data[key] = value
         req.post(url=url, timeout=timeout, data=data)
         if req.status_code == 200:
@@ -138,6 +133,23 @@ def main():
         else:
             print(f"Status Code: {req.status_code}")
         sys.exit(0)
+
+
+def save_in_file(url, data):
+    name = url[url.find('//')+2: url.rfind('/')] + '.txt'
+    my_file = open(name, "w+")
+    for key, value in data.items():
+        my_file.write(str(key) + ': ' + str(value) + '\n')
+    my_file.writelines(data)
+
+
+def main():
+    url = input("Введите ссылку на страницу: ")
+    req = SockGet()
+    method = int(input("Введите метод(GET = 1|POST = 0): "))
+    timeout = int(input("Введите время ожидания ответа: "))
+    start(url, req, method, timeout)
+
 
 
 if __name__ == "__main__":

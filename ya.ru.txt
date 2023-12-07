@@ -1,19 +1,19 @@
 Accept-CH: Sec-CH-UA-Platform-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA, Sec-CH-UA-Full-Version-List, Sec-CH-UA-WoW64, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Platform, Sec-CH-UA-Full-Version, Viewport-Width, DPR, Device-Memory, RTT, Downlink, ECT
 Cache-Control: no-cache,no-store,max-age=0,must-revalidate
-Content-Security-Policy: report-uri https://csp.yandex.net/csp?project=morda&from=morda.big.ru&showid=1701946618222157-2807460286819692039-balancer-l7leveler-kubr-yp-sas-40-BAL-7855&h=stable-portal-mordago-158.vla.yp-c.yandex.net&yandexuid=7196920391701946618&&version=2023-12-05-434&adb=0;script-src 'unsafe-inline' https://*.ya.ru https://mc.yandex.com https://yastatic.net https://yandex.ru https://ya.ru https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru;media-src https://yastatic.net;connect-src https://*.strm.yandex.net https://mc.yandex.com https://ya.ru https://yastatic.net https://yastat.net https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru https://mc.admetrica.ru;img-src https://*.verify.yandex.ru https://*.ya.ru https://*.yandex.ru https://ya.ru https://yabs.yandex.by https://yabs.yandex.kz https://yabs.yandex.ru https://yabs.yandex.uz https://yandex.ru 'self' https://yastatic.net data
+Content-Security-Policy: script-src 'unsafe-inline' https://*.ya.ru https://mc.yandex.com https://yastatic.net https://yandex.ru https://ya.ru https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru;media-src https://yastatic.net;connect-src https://*.strm.yandex.net https://mc.yandex.com https://ya.ru https://yastatic.net https://yastat.net https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru https://mc.admetrica.ru;img-src https://*.verify.yandex.ru https://*.ya.ru https://*.yandex.ru https://ya.ru https://yabs.yandex.by https://yabs.yandex.kz https://yabs.yandex.ru https://yabs.yandex.uz https://yandex.ru 'self' https://yastatic.net data
 Content-Type: text/html; charset=UTF-8
-Date: Thu, 07 Dec 2023 10:56:58 GMT
-Expires: Thu, 07 Dec 2023 10:56:58 GMT
-Last-Modified: Thu, 07 Dec 2023 10:56:58 GMT
+Date: Thu, 07 Dec 2023 12:11:59 GMT
+Expires: Thu, 07 Dec 2023 12:11:59 GMT
+Last-Modified: Thu, 07 Dec 2023 12:11:59 GMT
 Link: <https://yastatic.net/react/18.2.0/react-with-dom.min.js>;  rel="preload"; as="script"; crossorigin="anonymous";
 NEL: {"report_to"
 P3P: policyref="/w3c/p3p.xml", CP="NON DSP ADM DEV PSD IVDo OUR IND STP PHY PRE NAV UNI"
 Report-To: { "group"
-Reporting-Endpoints: default="https://ya.ru/portal/front/reports/?slots&region=54&reqid=1701946618222157-2807460286819692039-balancer-l7leveler-kubr-yp-sas-40-BAL-7855&dc=vla&page=desktop.yaru&enableOtherTypes=0"
-Set-Cookie: yashr=4464800981701946618; Path=/; Domain=.ya.ru; Expires=Fri, 06 Dec 2024 10:56:58 GMT; Secure; HttpOnly
+Reporting-Endpoints: default="https://ya.ru/portal/front/reports/?slots&region=54&reqid=1701951119042519-650426534012828424-balancer-l7leveler-kubr-yp-vla-158-BAL-9836&dc=sas&page=desktop.yaru&enableOtherTypes=0"
+Set-Cookie: yashr=4055875021701951119; Path=/; Domain=.ya.ru; Expires=Fri, 06 Dec 2024 12:11:59 GMT; Secure; HttpOnly
 Transfer-Encoding: chunked
 Vary: Cookie,Accept-Language,Accept-Encoding
 X-Content-Type-Options: nosniff
 X-Frame-Options: DENY
-X-Yandex-Req-Id: 1701946618222157-2807460286819692039-balancer-l7leveler-kubr-yp-sas-40-BAL-7855
+X-Yandex-Req-Id: 1701951119042519-650426534012828424-balancer-l7leveler-kubr-yp-vla-158-BAL-9836
 Accept-CHCache-ControlContent-Security-PolicyContent-TypeDateExpiresLast-ModifiedLinkNELP3PReport-ToReporting-EndpointsSet-CookieTransfer-EncodingVaryX-Content-Type-OptionsX-Frame-OptionsX-Yandex-Req-Id

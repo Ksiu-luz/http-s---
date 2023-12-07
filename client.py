@@ -11,6 +11,7 @@ class SockGet:
         self.headers = None
         self.content = None
         self.text = None
+        self.cookies = None
 
     @staticmethod
     def __get_port(url):
@@ -78,6 +79,7 @@ class SockGet:
                 self.headers = self.__get_headers(response)
                 self.content = self.__get_content(port, response)
                 self.text = self.__get_text(port, response)
+                self.cookies = self.get_cookies(self.headers)
             sock.close()
             return int(self.status_code), self.headers, self.content
         except Exception as ex:
@@ -87,6 +89,10 @@ class SockGet:
     @staticmethod
     def __get_status_code(response):
         return int(response.decode().split('\r\n\r\n')[0].splitlines()[0].split()[1:-1][0])
+    
+    @staticmethod
+    def get_cookies(headers):
+        return headers['Set-Cookie']
 
     @staticmethod
     def __get_headers(response):
@@ -122,7 +128,7 @@ def start(url, method, timeout, more):
                 save_in_file(url, req.headers)
         else:
             print(f"Status Code: {req.status_code}")
-        return req.status_code
+        return req
     elif method == 'POST':
         data = dict()
         more = more.split('+')
@@ -137,7 +143,7 @@ def start(url, method, timeout, more):
         else:
             print(f"Status Code: {req.status_code}")
             #sys.exit(0)
-        return req.status_code
+        return req
     else:
         raise Exception('Неверный метод')
 

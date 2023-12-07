@@ -145,7 +145,7 @@ def start(url, method, timeout, more):
             #sys.exit(0)
         return req
     else:
-        raise Exception('Неверный метод')
+        sys.exit('Неверный метод')
 
 
 def save_in_file(url, data):

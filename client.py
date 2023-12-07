@@ -48,6 +48,7 @@ class SockGet:
         result = sock.recv(1024)
         if result:
             self.status_code = self.__get_status_code(result)
+        return int(self.status_code)
 
     def get(self, url, timeout):
         port = self.__get_port(url)
@@ -78,13 +79,14 @@ class SockGet:
                 self.content = self.__get_content(port, response)
                 self.text = self.__get_text(port, response)
             sock.close()
+            return int(self.status_code), self.headers, self.content
         except Exception as ex:
             sock.close()
             return ex
 
     @staticmethod
     def __get_status_code(response):
-        return int(" ".join(response.decode().split('\r\n\r\n')[0].splitlines()[0].split()[1:-1]))
+        return int(response.decode().split('\r\n\r\n')[0].splitlines()[0].split()[1:-1][0])
 
     @staticmethod
     def __get_headers(response):
@@ -108,22 +110,24 @@ class SockGet:
 
 def start(url, method, timeout, more):
     req = SockGet()
-    if method:
+    if method == 'GET':
         ex = req.get(url=url, timeout=timeout)
         if ex:
             print(f"Error: {ex}")
-            sys.exit(0)
+            #sys.exit(0)
         if req.status_code == 200:
             print(req.status_code)
             print(req.headers)
-            save_in_file(url, req.headers)
+            if more == '1':
+                save_in_file(url, req.headers)
         else:
             print(f"Status Code: {req.status_code}")
-    else:
+        return req.status_code
+    elif method == 'POST':
         data = dict()
-        more = more.split('_')
+        more = more.split('+')
         for i in more:
-            g = i.split()
+            g = i.split('_')
             key = g[0]
             value = g[1:]
             data[key] = value
@@ -132,7 +136,10 @@ def start(url, method, timeout, more):
             print(req.status_code)
         else:
             print(f"Status Code: {req.status_code}")
-        sys.exit(0)
+            #sys.exit(0)
+        return req.status_code
+    else:
+        raise Exception('Неверный метод')
 
 
 def save_in_file(url, data):
@@ -144,11 +151,7 @@ def save_in_file(url, data):
 
 
 def main():
-    url = input("Введите ссылку на страницу: ")
-    req = SockGet()
-    method = int(input("Введите метод(GET = 1|POST = 0): "))
-    timeout = int(input("Введите время ожидания ответа: "))
-    start(url, req, method, timeout)
+    pass
 
 
 

@@ -14,7 +14,11 @@
 
 {link} - ссылка на страницу
 {timeout} - время ожидания
-{data} - заголовок и значения (для завершения ввода введите "_")
+{data} - заголовок и значения через пробелы (для разделения заголовков введите "_")
 
 Пример GET запроса с сохранением в файл:
 `python main.py https://ya.ru/ GET 300 1`
+`python main.py https://www.youtube.com/ GET 300 1`
+Пример POST запроса с сохранением в файл:
+`python main.py https://ya.ru/ POST 300 name_nastya_bob+age_5_99`
+`python main.py https://translate.yandex.ru/ POST 300 name_nastya_bob+age_5_99`

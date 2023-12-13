@@ -1,19 +1,19 @@
 Accept-CH: Sec-CH-UA-Platform-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA, Sec-CH-UA-Full-Version-List, Sec-CH-UA-WoW64, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Platform, Sec-CH-UA-Full-Version, Viewport-Width, DPR, Device-Memory, RTT, Downlink, ECT
 Cache-Control: no-cache,no-store,max-age=0,must-revalidate
-Content-Security-Policy: frame-src https://*.ya.ru https://*.yandex.ru https://ya.ru https://yandex.ru https://mc.yandex.ru https://mc.yandex.md https://*.ya.ru https://*.yandex.ru https://ya.ru https://yandex.ru;style-src 'unsafe-inline' https://yastatic.net;report-uri https://csp.yandex.net/csp?project=morda&from=morda.big.ru&showid=1701952641450926-8335706744423162681-balancer-l7leveler-kubr-yp-vla-47-BAL-7573&h=stable-portal-mordago-191.vla.yp-c.yandex.net&yandexuid=7231626811701952641&&version=2023-12-05-434&adb=0;script-src 'unsafe-inline' https://*.ya.ru https://mc.yandex.com https://yastatic.net https://yandex.ru https://ya.ru https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru;media-src https://yastatic.net;connect-src https://*.strm.yandex.net https://mc.yandex.com https://ya.ru https://yastatic.net https://yastat.net https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru https://mc.admetrica.ru;img-src https://*.verify.yandex.ru https://*.ya.ru https://*.yandex.ru https://ya.ru https://yabs.yandex.by https://yabs.yandex.kz https://yabs.yandex.ru https://yabs.yandex.uz https://yandex.ru 'self' https://yastatic.net data
+Content-Security-Policy: report-uri https://csp.yandex.net/csp?project=morda&from=morda.big.ru&showid=1702485318307440-8338080849140143142-balancer-l7leveler-kubr-yp-sas-134-BAL-8187&h=prestable-portal-mordago-24.vla.yp-c.yandex.net&yandexuid=8401431421702485318&&version=2023-12-12-441&adb=0;script-src 'unsafe-inline' https://*.ya.ru https://mc.yandex.com https://yastatic.net https://yandex.ru https://ya.ru https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru;media-src https://yastatic.net;connect-src https://*.strm.yandex.net https://mc.yandex.com https://ya.ru https://yastatic.net https://yastat.net https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru https://mc.admetrica.ru;img-src https://*.verify.yandex.ru https://*.ya.ru https://*.yandex.ru https://ya.ru https://yabs.yandex.by https://yabs.yandex.kz https://yabs.yandex.ru https://yabs.yandex.uz https://yandex.ru 'self' https://yastatic.net data
 Content-Type: text/html; charset=UTF-8
-Date: Thu, 07 Dec 2023 12:37:21 GMT
-Expires: Thu, 07 Dec 2023 12:37:21 GMT
-Last-Modified: Thu, 07 Dec 2023 12:37:21 GMT
+Date: Wed, 13 Dec 2023 16:35:18 GMT
+Expires: Wed, 13 Dec 2023 16:35:18 GMT
+Last-Modified: Wed, 13 Dec 2023 16:35:18 GMT
 Link: <https://yastatic.net/react/18.2.0/react-with-dom.min.js>;  rel="preload"; as="script"; crossorigin="anonymous";
 NEL: {"report_to"
 P3P: policyref="/w3c/p3p.xml", CP="NON DSP ADM DEV PSD IVDo OUR IND STP PHY PRE NAV UNI"
 Report-To: { "group"
-Reporting-Endpoints: default="https://ya.ru/portal/front/reports/?slots&region=54&reqid=1701952641450926-8335706744423162681-balancer-l7leveler-kubr-yp-vla-47-BAL-7573&dc=vla&page=desktop.yaru&enableOtherTypes=0"
-Set-Cookie: yashr=2689937671701952641; Path=/; Domain=.ya.ru; Expires=Fri, 06 Dec 2024 12:37:21 GMT; Secure; HttpOnly
+Reporting-Endpoints: default="https://ya.ru/portal/front/reports/?slots&region=54&reqid=1702485318307440-8338080849140143142-balancer-l7leveler-kubr-yp-sas-134-BAL-8187&dc=vla&page=desktop.yaru&enableOtherTypes=0"
+Set-Cookie: yashr=7236188331702485318; Path=/; Domain=.ya.ru; Expires=Thu, 12 Dec 2024 16:35:18 GMT; Secure; HttpOnly
 Transfer-Encoding: chunked
 Vary: Cookie,Accept-Language,Accept-Encoding
 X-Content-Type-Options: nosniff
 X-Frame-Options: DENY
-X-Yandex-Req-Id: 1701952641450926-8335706744423162681-balancer-l7leveler-kubr-yp-vla-47-BAL-7573
+X-Yandex-Req-Id: 1702485318307440-8338080849140143142-balancer-l7leveler-kubr-yp-sas-134-BAL-8187
 Accept-CHCache-ControlContent-Security-PolicyContent-TypeDateExpiresLast-ModifiedLinkNELP3PReport-ToReporting-EndpointsSet-CookieTransfer-EncodingVaryX-Content-Type-OptionsX-Frame-OptionsX-Yandex-Req-Id

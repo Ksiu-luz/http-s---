@@ -80,6 +80,9 @@ class SockGet:
                 self.content = self.__get_content(port, response)
                 self.text = self.__get_text(port, response)
                 self.cookies = self.get_cookies(self.headers)
+                if self.status_code == 301:
+                    print('Status Code: 301')
+                    return self.get(self.headers['Location'], timeout)
             sock.close()
             return int(self.status_code), self.headers, self.content
         except Exception as ex:
@@ -144,7 +147,11 @@ class SockGet:
     
     @staticmethod
     def get_cookies(headers):
-        return headers['Set-Cookie']
+        try:
+            cookie = headers['Set-Cookie']
+        except:
+            cookie = None
+        return cookie
 
     @staticmethod
     def __get_headers(response):
@@ -170,14 +177,11 @@ def start(url, method, timeout, more):
     req = SockGet()
     if method == 'GET':
         ex = req.get(url=url, timeout=timeout)
-        if ex:
-            print(f"Error: {ex}")
-            #sys.exit(0)
         if req.status_code == 200:
             print(req.status_code)
             print(req.headers)
             if more == '1':
-                save_in_file(url, req.headers)
+                save_in_file(url, req.headers, 'GET')
         else:
             print(f"Status Code: {req.status_code}")
         return req
@@ -205,14 +209,11 @@ def start(url, method, timeout, more):
         return req
     elif method == 'OPTIONS':
         ex = req.get(url=url, timeout=timeout)
-        if ex:
-            print(f"Error: {ex}")
-            #sys.exit(0)
         if req.status_code == 200:
             print(req.status_code)
             print(req.headers)
             if more == '1':
-                save_in_file(url, req.headers)
+                save_in_file(url, req.headers, 'OPTIONS')
         else:
             print(f"Status Code: {req.status_code}")
         return req
@@ -220,8 +221,8 @@ def start(url, method, timeout, more):
         sys.exit('Неверный метод')
 
 
-def save_in_file(url, data):
-    name = url[url.find('//')+2: url.rfind('/')] + '.txt'
+def save_in_file(url, data, method):
+    name = url[url.find('//')+2: url.rfind('.')] + '_' + method + '.txt'
     my_file = open(name, "w+")
     for key, value in data.items():
         my_file.write(str(key) + ': ' + str(value) + '\n')
@@ -231,7 +232,7 @@ def save_in_file(url, data):
 def main():
     pass
     # start('https://ya.ru/', 'OPTIONS', 5, 1)
-    # start('https://ya.ru/', 'GET', 5, 1)
+    # start('https://youtube.com/', 'GET', 200, '1')
 
 
 if __name__ == "__main__":

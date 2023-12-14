@@ -68,11 +68,7 @@ class SockGet:
             while True:
                 data = sock.recv(1024)
                 response += data
-                if b'\r\n0\r\n\r\n' in data:
-                    break
-                elif b'\r\n\r\n' in data:
-                    break
-                elif not data:
+                if b'\r\n0\r\n\r\n' in data or b'\r\n\r\n' in data or not data: 
                     break
             if response:
                 self.status_code = self.__get_status_code(response)
@@ -123,11 +119,7 @@ class SockGet:
             while True:
                 data = sock.recv(1024)
                 response += data
-                if b'\r\n0\r\n\r\n' in data:
-                    break
-                elif b'\r\n\r\n' in data:
-                    break
-                elif not data:
+                if b'\r\n0\r\n\r\n' in data or b'\r\n\r\n' in data or not data: 
                     break
             if response:
                 self.status_code = self.__get_status_code(response)
@@ -182,8 +174,6 @@ def start(url, method, timeout, more):
             print(req.headers)
             if more == '1':
                 save_in_file(url, req.headers, 'GET')
-        else:
-            print(f"Status Code: {req.status_code}")
         return req
     elif method == 'POST':
         data = dict()
@@ -196,9 +186,6 @@ def start(url, method, timeout, more):
         req.post(url=url, timeout=timeout, data=data)
         if req.status_code == 200:
             print(req.status_code)
-        else:
-            print(f"Status Code: {req.status_code}")
-            #sys.exit(0)
         return req
     elif method == 'HEAD':
         req.head(url=url, timeout=timeout)
@@ -214,8 +201,6 @@ def start(url, method, timeout, more):
             print(req.headers)
             if more == '1':
                 save_in_file(url, req.headers, 'OPTIONS')
-        else:
-            print(f"Status Code: {req.status_code}")
         return req
     else:
         sys.exit('Неверный метод')
@@ -227,13 +212,3 @@ def save_in_file(url, data, method):
     for key, value in data.items():
         my_file.write(str(key) + ': ' + str(value) + '\n')
     my_file.writelines(data)
-
-
-def main():
-    pass
-    # start('https://ya.ru/', 'OPTIONS', 5, 1)
-    # start('https://youtube.com/', 'GET', 200, '1')
-
-
-if __name__ == "__main__":
-    main()

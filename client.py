@@ -33,42 +33,27 @@ class SockGet:
             else:
                 return urlparse(url).path
 
-    def post(self, url, timeout, data):
+    def method(self, method, url, timeout, data):
         port = self.__get_port(url)
         host = urlparse(url).hostname
         path = self.__get_path(url)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(timeout)
-        response = pickle.dumps(data)
-        sock.connect((host, port))
-        if port == 443:
-            context = ssl.create_default_context()
-            sock = context.wrap_socket(sock, server_hostname=host)
-        sock.sendall(f"POST {path} HTTP/1.1\r\nHost:{host}\r\n\r\n{response}".encode())
-        sock.settimeout(timeout)
-        result = sock.recv(1024)
-        if result:
-            self.status_code = self.__get_status_code(result)
-        return int(self.status_code)
-
-    def get(self, url, timeout):
-        port = self.__get_port(url)
-        host = urlparse(url).hostname
-        path = self.__get_path(url)
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(timeout)
+        encode_data = ''
+        if data is not None:
+            encode_data = pickle.dumps(data)
         response = b""
         try:
             sock.connect((host, port))
             if port == 443:
                 context = ssl.create_default_context()
                 sock = context.wrap_socket(sock, server_hostname=host)
-            sock.sendall(f"GET {path} HTTP/1.1\r\nHost:{host}\r\n\r\n".encode())
+            sock.sendall(f"{method} {path} HTTP/1.1\r\nHost:{host}\r\n\r\n{encode_data}".encode())
             sock.settimeout(timeout)
             while True:
                 data = sock.recv(1024)
                 response += data
-                if b'\r\n0\r\n\r\n' in data or b'\r\n\r\n' in data or not data: 
+                if b'\r\n0\r\n\r\n' in data or b'\r\n\r\n' in data or not data:
                     break
             if response:
                 self.status_code = self.__get_status_code(response)
@@ -78,55 +63,7 @@ class SockGet:
                 self.cookies = self.get_cookies(self.headers)
                 if self.status_code == 301:
                     print('Status Code: 301')
-                    return self.get(self.headers['Location'], timeout)
-            sock.close()
-            return int(self.status_code), self.headers, self.content
-        except Exception as ex:
-            sock.close()
-            return ex
-
-    def head(self, url, timeout):
-        port = self.__get_port(url)
-        host = urlparse(url).hostname
-        path = self.__get_path(url)
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(timeout)
-        sock.connect((host, port))
-        if port == 443:
-            context = ssl.create_default_context()
-            sock = context.wrap_socket(sock, server_hostname=host)
-        sock.sendall(f"HEAD {path} HTTP/1.1\r\nHost:{host}\r\n\r\n".encode())
-        sock.settimeout(timeout)
-        result = sock.recv(1024)
-        if result:
-            self.status_code = self.__get_status_code(result)
-        return int(self.status_code)
-
-    def options(self, url, timeout):
-        port = self.__get_port(url)
-        host = urlparse(url).hostname
-        path = self.__get_path(url)
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(timeout)
-        response = b""
-        try:
-            sock.connect((host, port))
-            if port == 443:
-                context = ssl.create_default_context()
-                sock = context.wrap_socket(sock, server_hostname=host)
-            sock.sendall(f"OPTIONS {path} HTTP/1.1\r\nHost:{host}\r\n\r\n".encode())
-            sock.settimeout(timeout)
-            while True:
-                data = sock.recv(1024)
-                response += data
-                if b'\r\n0\r\n\r\n' in data or b'\r\n\r\n' in data or not data: 
-                    break
-            if response:
-                self.status_code = self.__get_status_code(response)
-                self.headers = self.__get_headers(response)
-                self.content = self.__get_content(port, response)
-                self.text = self.__get_text(port, response)
-                self.cookies = self.get_cookies(self.headers)
+                    return self.method('GET', self.headers['Location'], timeout, data)
             sock.close()
             return int(self.status_code), self.headers, self.content
         except Exception as ex:
@@ -165,49 +102,20 @@ class SockGet:
         return response.decode().split('\r\n\r\n')[1]
 
 
-def start(url, method, timeout, more):
+def start(url, method, timeout, save, data):
     req = SockGet()
-    if method == 'GET':
-        ex = req.get(url=url, timeout=timeout)
-        if req.status_code == 200:
-            print(req.status_code)
-            print(req.headers)
-            if more == '1':
-                save_in_file(url, req.headers, 'GET')
-        return req
-    elif method == 'POST':
-        data = dict()
-        more = more.split('+')
-        for i in more:
-            g = i.split('_')
-            key = g[0]
-            value = g[1:]
-            data[key] = value
-        req.post(url=url, timeout=timeout, data=data)
-        if req.status_code == 200:
-            print(req.status_code)
-        return req
-    elif method == 'HEAD':
-        req.head(url=url, timeout=timeout)
-        if req.status_code == 200:
-            print(req.status_code)
-        else:
-            print(f"Status Code: {req.status_code}")
-        return req
-    elif method == 'OPTIONS':
-        ex = req.get(url=url, timeout=timeout)
-        if req.status_code == 200:
-            print(req.status_code)
-            print(req.headers)
-            if more == '1':
-                save_in_file(url, req.headers, 'OPTIONS')
-        return req
+    req.method(method, url=url, timeout=timeout, data=data)
+    if req.status_code == 200:
+        print(req.status_code)
+        print(req.headers)
+        if save:
+            save_in_file(req.headers, save)
     else:
-        sys.exit('Неверный метод')
+        print(f"Status Code: {req.status_code}")
+    return req
 
 
-def save_in_file(url, data, method):
-    name = url[url.find('//')+2: url.rfind('.')] + '_' + method + '.txt'
+def save_in_file(data, name):
     my_file = open(name, "w+")
     for key, value in data.items():
         my_file.write(str(key) + ': ' + str(value) + '\n')

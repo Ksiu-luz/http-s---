@@ -12,7 +12,7 @@ parser.add_argument('-t', dest='timeout', type=str, default='5',
                     help='Время ожидания')
 
 parser.add_argument('-s', dest='save', type=str, default=None,
-                    help='Сохранение в файл для GET или данные для POST через _')
+                    help='Сохранение в файл для GET или данные для POST через _ (имя файла)')
 
 parser.add_argument('-d', dest='data', type=str, default=None,
                     help='Данные для отправки')

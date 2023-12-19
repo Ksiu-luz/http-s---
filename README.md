@@ -19,7 +19,7 @@
 {data} - заголовок и значения через пробелы (для разделения заголовков введите "_")
 
 Пример GET запроса с сохранением в файл:
-`python main.py https://ya.ru/ GET -t 300 -s ya.txt` !!!
+`python main.py https://ya.ru/ GET -t 300 -s yandex_file` !!!
 `python main.py https://ya.ru/ GET 300 1`
 `python main.py https://youtube.com/ GET 300 1`
 Пример POST запроса с сохранением в файл:

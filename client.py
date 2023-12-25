@@ -1,7 +1,6 @@
 import socket
 import ssl
 import sys
-import pickle
 from urllib.parse import urlparse
 
 
@@ -33,27 +32,35 @@ class SockGet:
             else:
                 return urlparse(url).path
 
-    def method(self, method, url, timeout, data):
+    def method(self, method, url, headers, timeout, data):
         port = self.__get_port(url)
         host = urlparse(url).hostname
         path = self.__get_path(url)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(timeout)
-        encode_data = ''
-        if data is not None:
-            encode_data = pickle.dumps(data)
+        heads = ''
+        if headers:
+            spam = headers.split('&')
+            for i in spam:
+                key, value = i.split(':')
+                heads += f"{key}: {value}\r\n"
+        body = ''
+        if data:
+            body = data
         response = b""
         try:
             sock.connect((host, port))
             if port == 443:
                 context = ssl.create_default_context()
                 sock = context.wrap_socket(sock, server_hostname=host)
-            sock.sendall(f"{method} {path} HTTP/1.1\r\nHost:{host}\r\n\r\n{encode_data}".encode())
+            sock.sendall(f"{method} {path} HTTP/1.1\r\nHost:{host}\r\n{heads}\r\n{body}".encode())
             sock.settimeout(timeout)
             while True:
                 data = sock.recv(1024)
                 response += data
                 if b'\r\n0\r\n\r\n' in data or b'\r\n\r\n' in data or not data:
+                    data = sock.recv(1024)
+                    response += data
                     break
             if response:
                 self.status_code = self.__get_status_code(response)
@@ -63,9 +70,9 @@ class SockGet:
                 self.cookies = self.get_cookies(self.headers)
                 if self.status_code == 301:
                     print('Status Code: 301')
-                    return self.method('GET', self.headers['Location'], timeout, data)
+                    return self.method('GET', self.headers['Location'], headers, timeout, data)
             sock.close()
-            return int(self.status_code), self.headers, self.content
+            return int(self.status_code), self.headers, self.text
         except Exception as ex:
             sock.close()
             return ex
@@ -102,21 +109,27 @@ class SockGet:
         return response.decode().split('\r\n\r\n')[1]
 
 
-def start(url, method, timeout, save, data):
+def start(url, method, headers, timeout, save, data):
     req = SockGet()
-    req.method(method, url=url, timeout=timeout, data=data)
+    req.method(method, url=url, headers=headers, timeout=timeout, data=data)
     if req.status_code == 200:
         print(req.status_code)
         print(req.headers)
+        print(req.text)
         if save:
-            save_in_file(req.headers, save)
+            save_in_file(req.text, save)
     else:
         print(f"Status Code: {req.status_code}")
     return req
 
 
-def save_in_file(data, name):
+# Андрюша, почини
+def save_in_file(text, name):
     my_file = open(name, "w+")
-    for key, value in data.items():
+    for key, value in text.items():
         my_file.write(str(key) + ': ' + str(value) + '\n')
-    my_file.writelines(data)
+    my_file.writelines(text)
+
+
+if __name__ == '__main__':
+    start("https://jsonplaceholder.typicode.com/posts/1", 'GET', 'Accept:text/html', 5, None, None)

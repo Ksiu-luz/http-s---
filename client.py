@@ -1,6 +1,6 @@
 import socket
 import ssl
-import sys
+import os
 from urllib.parse import urlparse
 
 
@@ -126,8 +126,10 @@ def start(url, method, headers, timeout, save, data):
 
 # Андрюша, почини
 def save_in_file(text, name):
-    my_file = open(name, "w+")
+    os.chdir("tests")
+    my_file = open(name + '.txt', "w+")
     my_file.write(text)
+    os.chdir("..")
 
 
 if __name__ == '__main__':

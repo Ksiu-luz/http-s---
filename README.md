@@ -20,13 +20,7 @@
 
 Пример GET запроса с сохранением в файл:
 `python main.py https://ya.ru/ GET -t 300 -s yandex_file` !!!
-`python main.py https://ya.ru/ GET 300 1`
-`python main.py https://youtube.com/ GET 300 1`
 Пример POST запроса с сохранением в файл:
-`python main.py https://ya.ru/ POST -t 300 -s y.txt -d name_nastya_bob+age_5_99` !!!
-Пример OPTIONS запроса с сохранением в файл:
-`python main.py https://ya.ru/ OPTIONS -t 300`
+`python main.py https://ya.ru/ POST -t 300 -s ya_post -d "name nastya bob+age 5 99"` !!!
 Пример HEAD запроса с сохранением в файл:
-`python main.py https://ya.ru/ HEAD 300 1`
-`python main.py https://www.youtube.com/ HEAD 300 1`
-`python main.py https://ya.ru/ HEAD -t 300 -s ya.txt` !!!
+`python main.py https://ya.ru/ HEAD -t 300 -s ya_head` !!!

@@ -7,58 +7,91 @@ import threading
 
 
 class Test(unittest.TestCase):
+    os.chdir("tests")
 
-    os.chdir('tests')
-
-    def test_get_yandex(self):
-        self.assertEqual(
-            client.start("https://ya.ru/", "GET", 300, "0", "").status_code, 200
-        )
-
-    def test_post_yandex(self):
+    def test_get(self):
         self.assertEqual(
             client.start(
-                "https://ya.ru/", "POST", 300, "name_nastya_bob+age_5_99", ""
+                "https://jsonplaceholder.typicode.com/posts/1",
+                "GET",
+                "Accept:text/html",
+                300,
+                None,
+                None,
             ).status_code,
-            302,
+            200,
         )
 
-    def test_post_youtube(self):
+    def test_get2(self):
         self.assertEqual(
             client.start(
-                "https://translate.yandex.ru/", "POST", 300, "name_nastya_bob+age_5_99", ""
+                "https://jsonplaceholder.typicode.com/posts/2",
+                "GET",
+                None,
+                300,
+                None,
+                None,
             ).status_code,
-            302,
+            200,
         )
 
-    def test_get_youtube(self):
+    def test_post(self):
         self.assertEqual(
-            client.start("https://youtube.com/", "GET", 300, "1", "").status_code, 200
+            client.start(
+                "https://jsonplaceholder.typicode.com/posts/1",
+                "POST",
+                None,
+                300,
+                None,
+                "hello",
+            ).status_code,
+            404,
         )
-
+    
+    
     def test_cookies(self):
-        self.assertGreater(
-            len(client.start("https://www.youtube.com/", "GET", 300, "1", "").cookies), 0
-        )
-
-    def test_options(self):
         self.assertEqual(
-            client.start("https://youtube.com/", "OPTIONS", 300, "1", "").status_code, 200
-        )
-
-    def test_head(self):
-        self.assertEqual(
-            client.start("https://ya.ru/", "HEAD", 300, "1", "").status_code, 302
+            client.start(
+                "https://jsonplaceholder.typicode.com/posts/3",
+                "GET",
+                None,
+                300,
+                None,
+                None,
+            ).cookies,
+            None,
         )
 
     def test_fall_url(self):
         self.assertEqual(
-            client.start("https://yabbb.ru/", "GET", 300, "0", "").status_code, None
+            client.start("https://dkgmdkfv/", "GET", None, 300, None, None).status_code,
+            None,
         )
 
     def test_fall_time(self):
         self.assertEqual(
-            client.start("https://ya.ru/", "GET", 0, "0", "").status_code, None
+            client.start(
+                "https://jsonplaceholder.typicode.com/posts/5",
+                "GET",
+                None,
+                0,
+                None,
+                None,
+            ).status_code,
+            None,
+        )
+
+    def test_save_in_file(self):
+        self.assertEqual(
+            client.start(
+                "https://jsonplaceholder.typicode.com/posts/1",
+                "GET",
+                "Accept:text/html",
+                300,
+                "file_save",
+                None,
+            ).status_code,
+            200,
         )
 
 

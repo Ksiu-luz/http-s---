@@ -113,22 +113,21 @@ def start(url, method, headers, timeout, save, data):
     req = SockGet()
     req.method(method, url=url, headers=headers, timeout=timeout, data=data)
     if req.status_code == 200:
-        print(req.status_code)
-        print(req.headers)
-        print(req.text)
-        if save:
+        #print(req.status_code)
+        #print(req.headers)
+        #print(req.text)
+        if save != None:
             save_in_file(req.text, save)
     else:
-        print(f"Status Code: {req.status_code}")
+        pass
+        #print(f"Status Code: {req.status_code}")
     return req
 
 
 # Андрюша, почини
 def save_in_file(text, name):
     my_file = open(name, "w+")
-    for key, value in text.items():
-        my_file.write(str(key) + ': ' + str(value) + '\n')
-    my_file.writelines(text)
+    my_file.write(text)
 
 
 if __name__ == '__main__':

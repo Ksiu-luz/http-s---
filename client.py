@@ -59,8 +59,6 @@ class SockGet:
                 data = sock.recv(1024)
                 response += data
                 if b'\r\n0\r\n\r\n' in data or b'\r\n\r\n' in data or not data:
-                    data = sock.recv(1024)
-                    response += data
                     break
             if response:
                 self.status_code = self.__get_status_code(response)
@@ -113,18 +111,16 @@ def start(url, method, headers, timeout, save, data):
     req = SockGet()
     req.method(method, url=url, headers=headers, timeout=timeout, data=data)
     if req.status_code == 200:
-        #print(req.status_code)
-        #print(req.headers)
-        #print(req.text)
-        if save != None:
+        print(req.status_code)
+        # print(req.headers)
+        # print(req.text)
+        if not(save is None):
             save_in_file(req.text, save)
     else:
-        pass
-        #print(f"Status Code: {req.status_code}")
+        print(f"Status Code: {req.status_code}")
     return req
 
 
-# Андрюша, почини
 def save_in_file(text, name):
     os.chdir("tests")
     my_file = open(name + '.txt', "w+")

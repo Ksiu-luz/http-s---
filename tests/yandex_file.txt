@@ -1,2 +1,5 @@
-131F
-<!DOCTYPE html><html   class="i-ua_js_no i-ua_css_standart i-ua_browser_ i-ua_browser-engine_ i-ua_browser_desktop font_loaded document document_new-year-promo_yes document_overflow-scroll_yes  i-ua_platform_other"  lang="ru"><head  xmlns:og="http://ogp.me/ns#"><meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><title>яндекс</title><link rel="apple-touch-icon" href="https://yastatic.net/s3/home-static/_/31/3111cd045f263a072f504780b8535840.png" sizes="76x76"><link rel="apple-touch-icon" href="https://yastatic.net/s3/home-static/_/a2/a27610a94f8a0827a6a937c869d95a3e.png" sizes="120x120"><link rel="apple-touch-icon" href="https://yastatic.net/s3/home-static/_/a7/a79b81aa025e9edb2244e38581c868ad.png" sizes="152x152"><link rel="apple-touch-icon" href="https://yastatic.net/s3/home-static/_/46/462e92b9e3792be37a1c3fdefb26af28.png" sizes="180x180"><link rel="alternate" type="application/rss+xml" title="Ќовости яндекса" href="https://yandex.ru/company/press_releases/news.rss"><
+{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum

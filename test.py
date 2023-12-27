@@ -1,9 +1,6 @@
 import unittest
 import client
 import os
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-import server
-import threading
 
 
 class Test(unittest.TestCase):

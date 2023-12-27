@@ -82,6 +82,7 @@ class Test(unittest.TestCase):
         )
 
     def test_save_in_file(self):
+        os.chdir("..")
         self.assertEqual(
             client.start(
                 "https://jsonplaceholder.typicode.com/posts/1",
@@ -93,6 +94,7 @@ class Test(unittest.TestCase):
             ).status_code,
             200,
         )
+        os.chdir("tests")
 
 
 if __name__ == "__main__":

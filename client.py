@@ -53,7 +53,7 @@ class SockGet:
             if port == 443:
                 context = ssl.create_default_context()
                 sock = context.wrap_socket(sock, server_hostname=host)
-            sock.sendall(f"{method} {path} HTTP/1.1\r\nHost:{host}\r\n{heads}\r\n{body}".encode())
+            sock.sendall(f"{method} {path} HTTP/1.1\r\nHost:{host}\r\n{heads}\r\n{body}\r\nCookie:{self.cookies}".encode())
             sock.settimeout(timeout)
             while True:
                 data = sock.recv(1024)

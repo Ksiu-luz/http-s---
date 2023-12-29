@@ -8,18 +8,27 @@ parser.add_argument('url', type=str,
 parser.add_argument('method', type=str, choices=['GET', 'POST', 'HEAD', 'OPTIONS'],
                     help='GET|POST|HEAD|OPTIONS')
 
-parser.add_argument('-hd', dest='headers', type=str, default="",
-                    help='Заголовки')
+parser.add_argument('-hd', dest='headers', type=str, default=None,
+                    help='Заголовки в формате {key1}:{value1}+{key2}:{value2}')
 
 parser.add_argument('-t', dest='timeout', type=str, default='5',
-                    help='Время ожидания')
+                    help='Время ожидания ответа')
 
 parser.add_argument('-s', dest='save', type=str, default=None,
-                    help='Сохранение в файл для GET')
+                    help='Имя файла для сохранение ответа')
 
-parser.add_argument('-d', dest='data', type=str, default="",
-                    help='Данные для отправки')
+parser.add_argument('-d', dest='data', type=str, default=None,
+                    help='Тело запроса в формате {key1}:{value1}+{key2}:{value2}')
+
+parser.add_argument('-c', dest='use_cookies', action="store_true")
+
 args = parser.parse_args()
 
 if __name__ == "__main__":
-    client.start(args.url, args.method, args.headers, int(args.timeout), args.save, args.data)
+    client.start(url=args.url,
+                 method=args.method,
+                 headers=args.headers,
+                 timeout=int(args.timeout),
+                 save=args.save,
+                 data=args.data,
+                 use_cookies=args.use_cookies)

@@ -1,6 +1,23 @@
-{
-  "userId": 1,
-  "id": 1,
-  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-}
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+X-Content-Type-Options: nosniff
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: Mon, 01 Jan 1990 00:00:00 GMT
+Date: Fri, 29 Dec 2023 21:21:48 GMT
+Content-Length: 798364
+Strict-Transport-Security: max-age=31536000
+X-Frame-Options: SAMEORIGIN
+Permissions-Policy: ch-ua-arch=*, ch-ua-bitness=*, ch-ua-full-version=*, ch-ua-full-version-list=*, ch-ua-model=*, ch-ua-wow64=*, ch-ua-form-factor=*, ch-ua-platform=*, ch-ua-platform-version=*
+Origin-Trial: AvC9UlR6RDk2crliDsFl66RWLnTbHrDbp+DiY6AYz/PNQ4G4tdUTjrHYr2sghbkhGQAVxb7jaPTHpEVBz0uzQwkAAAB4eyJvcmlnaW4iOiJodHRwczovL3lvdXR1YmUuY29tOjQ0MyIsImZlYXR1cmUiOiJXZWJWaWV3WFJlcXVlc3RlZFdpdGhEZXByZWNhdGlvbiIsImV4cGlyeSI6MTcxOTUzMjc5OSwiaXNTdWJkb21haW4iOnRydWV9
+Cross-Origin-Opener-Policy: same-origin-allow-popups; report-to="youtube_main"
+Report-To: {"group":"youtube_main","max_age":2592000,"endpoints":[{"url":"https://csp.withgoogle.com/csp/report-to/youtube_main"}]}
+P3P: CP="This is not a P3P policy! See http://support.google.com/accounts/answer/151657?hl=ru for more info."
+Server: ESF
+X-XSS-Protection: 0
+Set-Cookie: GPS=1; Domain=.youtube.com; Expires=Fri, 29-Dec-2023 21:51:48 GMT; Path=/; Secure; HttpOnly
+Set-Cookie: YSC=OQINxhOAXz8; Domain=.youtube.com; Path=/; Secure; HttpOnly; SameSite=none
+Set-Cookie: VISITOR_INFO1_LIVE=FFcirWZ5K8k; Domain=.youtube.com; Expires=Wed, 26-Jun-2024 21:21:48 GMT; Path=/; Secure; HttpOnly; SameSite=none
+Set-Cookie: VISITOR_PRIVACY_METADATA=CgJSVRIEGgAgZA%3D%3D; Domain=.youtube.com; Expires=Wed, 26-Jun-2024 21:21:48 GMT; Path=/; Secure; HttpOnly; SameSite=lax
+Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+

@@ -1,16 +1,81 @@
 import socket
 import ssl
+import sys
 import os
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlencode
 
 
-class SockGet:
+class Sock:
     def __init__(self):
         self.status_code = None
         self.headers = None
         self.content = None
         self.text = None
+        self.response = b""
         self.cookies = None
+
+    def method(self, url, method, headers, timeout, data, use_cookies=False):
+        port = self.__get_port(url)
+        host = urlparse(url).hostname
+        path = self.__get_path(url)
+        self.response = b""
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(timeout)
+            s.connect((host, port))
+            if port == 443:
+                context = ssl.create_default_context()
+                s = context.wrap_socket(s, server_hostname=host)
+            request = f'{method} {path} HTTP/1.1\r\nHost: {host}'
+
+            if headers is not None:
+                heads = ''
+                for key, value in headers.items():
+                    heads += f'\r\n{key}: {value}'
+                request += heads
+
+            if data is not None:
+                encoded_data = urlencode(data).encode('utf-8')
+                if headers is not None:
+                    if use_cookies and self.cookies is not None and 'Cookie' not in headers:
+                        request += f"\r\n{self.cookies}"
+                    if 'Content-Type' not in headers:
+                        request += "\r\nContent-Type: application/x-www-form-urlencoded"
+                    if 'Content-Length' not in headers:
+                        request += f"\r\nContent-Length: {len(encoded_data)}\r\n\r\n"
+                else:
+                    request += "\r\nContent-Type: application/x-www-form-urlencoded"
+                    request += f"\r\nContent-Length: {len(encoded_data)}\r\n\r\n"
+                s.sendall(request.encode('utf-8') + encoded_data)
+            else:
+                s.sendall(f'{request}\r\n\r\n'.encode('utf-8'))
+
+            # Получаем данные
+            while True:
+                try:
+                    chunk = s.recv(1024)
+                except TimeoutError:
+                    break
+                self.response += chunk
+                if method in ('POST', 'HEAD', 'OPTIONS') and b'\r\n\r\n' in self.response:
+                    break
+                if b'HTTP/1.1 3' in self.response and b'Location' in self.response:
+                    break
+                if not chunk or b'\r\n0\r\n\r\n' in self.response:
+                    break
+
+            if self.response:
+                self.status_code = self.__get_status_code(self.response)
+                self.headers = self.__get_headers(self.response)
+                if 400 > self.status_code[0] >= 300:
+                    print(self.status_code[0], self.status_code[1])
+                    print('Выполняется перенаправление...')
+                    return self.method(self.headers['Location'], method, headers, timeout, data, use_cookies)
+                if use_cookies:
+                    self.__update_cookies()
+                self.content = self.__get_content(self.response, port)
+                self.text = self.__get_text(self.response, port)
+                print(self.status_code[0], self.status_code[1])
+        return self.status_code, self.headers, self.text
 
     @staticmethod
     def __get_port(url):
@@ -32,101 +97,86 @@ class SockGet:
             else:
                 return urlparse(url).path
 
-    def method(self, method, url, headers, timeout, data):
-        port = self.__get_port(url)
-        host = urlparse(url).hostname
-        path = self.__get_path(url)
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(timeout)
-        heads = ''
-        if headers:
-            spam = headers.split('&')
-            for i in spam:
-                key, value = i.split(':')
-                heads += f"{key}: {value}\r\n"
-        body = ''
-        if data:
-            body = data
-        response = b""
+    @staticmethod
+    def __decode(data):
         try:
-            sock.connect((host, port))
-            if port == 443:
-                context = ssl.create_default_context()
-                sock = context.wrap_socket(sock, server_hostname=host)
-            sock.sendall(f"{method} {path} HTTP/1.1\r\nHost:{host}\r\n{heads}\r\n{body}\r\nCookie:{self.cookies}".encode())
-            sock.settimeout(timeout)
-            while True:
-                data = sock.recv(1024)
-                response += data
-                if b'\r\n0\r\n\r\n' in data or b'\r\n\r\n' in data or not data:
-                    break
-            if response:
-                self.status_code = self.__get_status_code(response)
-                self.headers = self.__get_headers(response)
-                self.content = self.__get_content(port, response)
-                self.text = self.__get_text(port, response)
-                self.cookies = self.get_cookies(self.headers)
-                if self.status_code == 301:
-                    print('Status Code: 301')
-                    return self.method('GET', self.headers['Location'], headers, timeout, data)
-            sock.close()
-            return int(self.status_code), self.headers, self.text
-        except Exception as ex:
-            sock.close()
-            return ex
+            return data.decode()
+        except UnicodeDecodeError:
+            return data.decode('windows-1251')
 
-    @staticmethod
-    def __get_status_code(response):
-        return int(response.decode().split('\r\n\r\n')[0].splitlines()[0].split()[1:-1][0])
-    
-    @staticmethod
-    def get_cookies(headers):
+    def __update_cookies(self):
         try:
-            cookie = headers['Set-Cookie']
-        except:
-            cookie = None
-        return cookie
+            self.cookies = self.headers['Set-Cookie']
+            print('Cookie обновлены')
+        except KeyError:
+            self.cookies = None
+            print('Cookie отсутствуют')
 
-    @staticmethod
-    def __get_headers(response):
+    def __get_status_code(self, response):
+        try:
+            raw_data = self.__decode(response).split('\r\n')[0].split(' ')[1:]
+            status = int(raw_data[0])
+            info = ' '.join(raw_data[1:])
+        except UnicodeDecodeError:
+            sys.exit('Данные ответа были повреждены. Декодирование невозможно.')
+
+        return status, info
+
+    def __get_headers(self, response):
+        raw_data = self.__decode(response).split('\r\n\r\n')[0].split('\r\n')[1:]
         headers = dict()
-        for head in response.decode().split('\r\n\r\n')[0].splitlines()[1:]:
-            headers.update({head.split(": ")[0]: head.split(": ")[1]})
+        for head in raw_data:
+            spam = head.split(': ')
+            headers[spam[0]] = ': '.join(spam[1:])
         return headers
 
-    @staticmethod
-    def __get_content(port, response):
+    def __get_content(self, response, port):
+        raw_data = self.__decode(response)
         if port == 80:
-            return response.decode().split('\r\n\r\n')[1].split("\r\n")[1].encode()
-        return response.decode().split('\r\n\r\n')[1].encode()
+            return raw_data.split('\r\n\r\n')[1].split("\r\n")[1].encode()
+        return raw_data.split('\r\n\r\n')[1].encode()
 
-    @staticmethod
-    def __get_text(port, response):
+    def __get_text(self, response, port):
+        raw_data = self.__decode(response)
         if port == 80:
-            return response.decode().split('\r\n\r\n')[1].split("\r\n")[1]
-        return response.decode().split('\r\n\r\n')[1]
+            return raw_data.split('\r\n\r\n')[1].split("\r\n")[1]
+        return raw_data.split('\r\n\r\n')[1]
+
+    def save(self, filename):
+        os.chdir("tests")
+        with open(f"{filename}.txt", 'w+', encoding='utf-8') as f:
+            f.write(self.__decode(self.response))
 
 
-def start(url, method, headers, timeout, save, data):
-    req = SockGet()
-    req.method(method, url=url, headers=headers, timeout=timeout, data=data)
-    if req.status_code == 200:
-        print(req.status_code)
-        # print(req.headers)
-        # print(req.text)
-        if not(save is None):
-            save_in_file(req.text, save)
-    else:
-        print(f"Status Code: {req.status_code}")
+def start(url, method, headers, timeout, save, data, use_cookies=False):
+    req = Sock()
+    try:
+        if headers is not None:
+            temp_headers = {}
+            spam = headers.split('+')
+            for line in spam:
+                key, value = line.split(':')
+                temp_headers[key] = value
+            headers = temp_headers
+    except Exception:
+        sys.exit('Неверный формат заголовков')
+
+    try:
+        if data is not None:
+            temp_data = {}
+            spam = data.split('+')
+            for line in spam:
+                key, value = line.split(':')
+                temp_data[key] = value
+            data = temp_data
+    except Exception:
+        sys.exit('Неверный формат тела запроса')
+
+    req.method(method=method, url=url, headers=headers, timeout=timeout, data=data, use_cookies=use_cookies)
+    if save is not None:
+        req.save(save)
     return req
 
 
-def save_in_file(text, name):
-    os.chdir("tests")
-    my_file = open(name + '.txt', "w+")
-    my_file.write(text)
-    os.chdir("..")
-
-
 if __name__ == '__main__':
-    start("https://jsonplaceholder.typicode.com/posts/1", 'GET', 'Accept:text/html', 5, None, None)
+    pass

@@ -25,10 +25,12 @@ parser.add_argument('-c', dest='use_cookies', action="store_true")
 args = parser.parse_args()
 
 if __name__ == "__main__":
-    client.start(url=args.url,
-                 method=args.method,
-                 headers=args.headers,
-                 timeout=int(args.timeout),
-                 save=args.save,
-                 data=args.data,
-                 use_cookies=args.use_cookies)
+    cl, cookie = client.start(url=args.url,
+                              method=args.method,
+                              headers=args.headers,
+                              timeout=int(args.timeout),
+                              save=args.save,
+                              data=args.data,
+                              use_cookies=args.use_cookies)
+    if args.use_cookies:
+        print(f'Данные Cookie: {cookie}')

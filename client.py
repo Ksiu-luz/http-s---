@@ -175,7 +175,7 @@ def start(url, method, headers, timeout, save, data, use_cookies=False):
     req.method(method=method, url=url, headers=headers, timeout=timeout, data=data, use_cookies=use_cookies)
     if save is not None:
         req.save(save)
-    return req
+    return req, req.cookies
 
 
 if __name__ == '__main__':

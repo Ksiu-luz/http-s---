@@ -14,7 +14,7 @@ class Sock:
         self.response = b""
         self.cookies = None
 
-    def method(self, url, method, headers, timeout, data, use_cookies=False):
+    def method(self, url, method, headers, timeout, data, use_cookies=None):
         port = self.__get_port(url)
         host = urlparse(url).hostname
         path = self.__get_path(url)
@@ -36,7 +36,7 @@ class Sock:
             if data is not None:
                 encoded_data = urlencode(data).encode('utf-8')
                 if headers is not None:
-                    if use_cookies and self.cookies is not None and 'Cookie' not in headers:
+                    if use_cookies is not None and self.cookies is not None and 'Cookie' not in headers:
                         request += f"\r\n{self.cookies}"
                     if 'Content-Type' not in headers:
                         request += "\r\nContent-Type: application/x-www-form-urlencoded"
@@ -70,7 +70,7 @@ class Sock:
                     print(self.status_code[0], self.status_code[1])
                     print('Выполняется перенаправление...')
                     return self.method(self.headers['Location'], method, headers, timeout, data, use_cookies)
-                if use_cookies:
+                if use_cookies is not None:
                     self.__update_cookies()
                 self.content = self.__get_content(self.response, port)
                 self.text = self.__get_text(self.response, port)
@@ -110,7 +110,7 @@ class Sock:
             print('Cookie обновлены')
         except KeyError:
             self.cookies = None
-            print('Cookie отсутствуют')
+            print('Cookie ответа отсутствуют')
 
     def __get_status_code(self, response):
         try:
@@ -148,8 +148,10 @@ class Sock:
             f.write(self.__decode(self.response))
 
 
-def start(url, method, headers=None, timeout=5, save=None, data=None, use_cookies=False):
+def start(url, method, headers=None, timeout=5, save=None, data=None, use_cookies=None):
     req = Sock()
+    if use_cookies is not None:
+        req.cookies = use_cookies
     try:
         if headers is not None:
             temp_headers = {}

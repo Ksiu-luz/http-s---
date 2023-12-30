@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
 
+
 class HttpGetHandler(BaseHTTPRequestHandler):
     """Обработчик с реализованным методом do_GET."""
 
@@ -11,6 +12,7 @@ class HttpGetHandler(BaseHTTPRequestHandler):
         self.wfile.write('<html><head><meta charset="utf-8">'.encode())
         self.wfile.write('<title>Простой HTTP-сервер.</title></head>'.encode())
         self.wfile.write('<body>Был получен GET-запрос.</body></html>'.encode())
+
 
 def run(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):
   server_address = ('', 8000)

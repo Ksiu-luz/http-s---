@@ -20,7 +20,7 @@ parser.add_argument('-s', dest='save', type=str, default=None,
 parser.add_argument('-d', dest='data', type=str, default=None,
                     help='Тело запроса в формате {key1}:{value1}+{key2}:{value2}')
 
-parser.add_argument('-c', dest='use_cookies', action="store_true")
+parser.add_argument('-c', dest='use_cookies', type=str, default=None)
 
 args = parser.parse_args()
 

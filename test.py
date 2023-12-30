@@ -40,11 +40,11 @@ class Test(unittest.TestCase):
     def test_post(self):
         self.assertEqual(
             client.start(
-                "https://jsonplaceholder.typicode.com/posts/2",
-                "OPTIONS",\
+                "https://jsonplaceholder.typicode.com/posts",
+                "POST",\
                 data="Data:bobobo"
             )[0].status_code[0],
-            204,
+            201,
         )
     
     def test_head(self):

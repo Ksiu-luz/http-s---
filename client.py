@@ -148,7 +148,7 @@ class Sock:
             f.write(self.__decode(self.response))
 
 
-def start(url, method, headers, timeout, save, data, use_cookies=False):
+def start(url, method, headers=None, timeout=5, save=None, data=None, use_cookies=False):
     req = Sock()
     try:
         if headers is not None:

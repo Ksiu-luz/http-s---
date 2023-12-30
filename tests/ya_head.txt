@@ -1,0 +1,17 @@
+HTTP/1.1 200 Ok
+Accept-CH: Sec-CH-UA-Platform-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA, Sec-CH-UA-Full-Version-List, Sec-CH-UA-WoW64, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Platform, Sec-CH-UA-Full-Version, Viewport-Width, DPR, Device-Memory, RTT, Downlink, ECT
+Cache-Control: max-age=1209600,private
+Date: Sat, 30 Dec 2023 12:12:49 GMT
+NEL: {"report_to": "network-errors", "max_age": 100, "success_fraction": 0.001, "failure_fraction": 0.1}
+P3P: policyref="/w3c/p3p.xml", CP="NON DSP ADM DEV PSD IVDo OUR IND STP PHY PRE NAV UNI"
+Portal: Home
+Report-To: { "group": "network-errors", "max_age": 100, "endpoints": [{"url": "https://dr.yandex.net/nel", "priority": 1}, {"url": "https://dr2.yandex.net/nel", "priority": 2}]}
+X-Content-Type-Options: nosniff
+X-Yandex-Req-Id: 1703938369645139-15588499416483673077-balancer-l7leveler-kubr-yp-sas-68-BAL-1222
+set-cookie: is_gdpr=0; Path=/; Domain=.ya.ru; Expires=Mon, 29 Dec 2025 12:12:49 GMT
+set-cookie: is_gdpr_b=CIvnAxC34gEoAg==; Path=/; Domain=.ya.ru; Expires=Mon, 29 Dec 2025 12:12:49 GMT
+set-cookie: _yasc=bWAsmps6GDE21OVlFwIYFf3cChCWIYvgL0M62qssulvXib4QcYdYwMy3P9H0gGjR3uY=; domain=.ya.ru; path=/; expires=Tue, 27 Dec 2033 12:12:49 GMT; secure
+set-cookie: i=+gTaJwFj890khaQwzMs0U/gGgecWnJEWUO8Jv5BLR4tfdPdXETjgP0c/U4Qptxgz6sAxaPqFjnfNYMVXp977SwGW9lc=; Expires=Mon, 29-Dec-2025 12:12:49 GMT; Domain=.ya.ru; Path=/; Secure; HttpOnly
+set-cookie: yandexuid=2836730771703938369; Expires=Mon, 29-Dec-2025 12:12:49 GMT; Domain=.ya.ru; Path=/; Secure
+set-cookie: yashr=3993172391703938369; Path=/; Domain=.ya.ru; Expires=Sun, 29 Dec 2024 12:12:49 GMT; Secure; HttpOnly
+

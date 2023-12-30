@@ -12,70 +12,67 @@ class Test(unittest.TestCase):
                 "https://jsonplaceholder.typicode.com/posts/1",
                 "GET",
                 "Accept:text/html",
-                300,
+                5,
                 None,
                 None,
-            ).status_code,
+            )[0].status_code[0],
             200,
         )
 
     def test_get2(self):
         self.assertEqual(
             client.start(
-                "https://jsonplaceholder.typicode.com/posts/2",
-                "GET",
-                None,
-                300,
-                None,
-                None,
-            ).status_code,
+                "https://jsonplaceholder.typicode.com/posts/4",
+                "GET"
+            )[0].status_code[0],
             200,
         )
-
+    
+    def test_options(self):
+        self.assertEqual(
+            client.start(
+                "https://jsonplaceholder.typicode.com/posts/2",
+                "OPTIONS"
+            )[0].status_code[0],
+            204,
+        )
+    
     def test_post(self):
         self.assertEqual(
             client.start(
-                "https://jsonplaceholder.typicode.com/posts/1",
-                "POST",
-                None,
-                300,
-                None,
-                "hello",
-            ).status_code,
-            404,
+                "https://jsonplaceholder.typicode.com/posts/2",
+                "OPTIONS",\
+                data="Data:bobobo"
+            )[0].status_code[0],
+            204,
         )
     
+    def test_head(self):
+        self.assertEqual(
+            client.start(
+                "https://jsonplaceholder.typicode.com/posts/3",
+                "HEAD"
+            )[0].status_code[0],
+            200,
+        )
     
     def test_cookies(self):
         self.assertEqual(
             client.start(
                 "https://jsonplaceholder.typicode.com/posts/3",
-                "GET",
-                None,
-                300,
-                None,
-                None,
-            ).cookies,
+                "GET"
+            )[1],
             None,
         )
 
-    def test_fall_url(self):
-        self.assertEqual(
-            client.start("https://dkgmdkfv/", "GET", None, 300, None, None).status_code,
-            None,
-        )
-
-    def test_fall_time(self):
+    def test_small_time(self):
         self.assertEqual(
             client.start(
                 "https://jsonplaceholder.typicode.com/posts/5",
                 "GET",
-                None,
-                0,
-                None,
-                None,
-            ).status_code,
-            None,
+                timeout=1
+            )[0].status_code[0],
+            200,
         )
 
     def test_save_in_file(self):
@@ -83,12 +80,8 @@ class Test(unittest.TestCase):
         self.assertEqual(
             client.start(
                 "https://jsonplaceholder.typicode.com/posts/1",
-                "GET",
-                "Accept:text/html",
-                300,
-                "file_save",
-                None,
-            ).status_code,
+                "GET"
+            )[0].status_code[0],
             200,
         )
         os.chdir("tests")

@@ -1,0 +1,30 @@
+HTTP/1.1 200 Ok
+Accept-CH: Sec-CH-UA-Platform-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA, Sec-CH-UA-Full-Version-List, Sec-CH-UA-WoW64, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Platform, Sec-CH-UA-Full-Version, Viewport-Width, DPR, Device-Memory, RTT, Downlink, ECT
+Cache-Control: no-cache,no-store,max-age=0,must-revalidate
+Content-Security-Policy: report-uri https://csp.yandex.net/csp?project=morda&from=morda.big.ru&showid=1703940509777617-13636189305501119353-balancer-l7leveler-kubr-yp-vla-123-BAL-9240&h=stable-portal-mordago-186.sas.yp-c.yandex.net&yandexuid=6011193531703940509&&version=2023-12-28-456&adb=0;script-src 'unsafe-inline' https://*.ya.ru https://mc.yandex.com https://yastatic.net https://yandex.ru https://ya.ru https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru;media-src https://yastatic.net;connect-src https://*.strm.yandex.net https://mc.yandex.com https://ya.ru https://yastatic.net https://yastat.net https://mc.yandex.ru https://*.mc.yandex.ru https://adstat.yandex.ru https://mc.admetrica.ru;img-src https://*.verify.yandex.ru https://*.ya.ru https://*.yandex.ru https://ya.ru https://yabs.yandex.by https://yabs.yandex.kz https://yabs.yandex.ru https://yabs.yandex.uz https://yandex.ru 'self' https://yastatic.net data: https://masterpiecer-cropped-images.s3.yandex.net https://masterpiecer-cropped-images-testing.s3.mds.yandex.net https://cdn.shedevrum.ai https://favicon.yandex.net https://avatars.mds.yandex.net blob: https://mc.admetrica.ru https://mc.yandex.com https://*.mc.yandex.ru https://adstat.yandex.ru https://mc.yandex.ru;frame-src https://*.ya.ru https://*.yandex.ru https://ya.ru https://yandex.ru https://mc.yandex.ru https://mc.yandex.md https://*.ya.ru https://*.yandex.ru https://ya.ru https://yandex.ru;style-src 'unsafe-inline' https://yastatic.net;default-src https://yastatic.net https://yastat.net 'self';font-src https://yastatic.net
+Content-Type: text/html; charset=UTF-8
+Date: Sat, 30 Dec 2023 12:48:29 GMT
+Expires: Sat, 30 Dec 2023 12:48:29 GMT
+Last-Modified: Sat, 30 Dec 2023 12:48:29 GMT
+Link: <//yastatic.net/s3/home/new-year-feed/promo/main_big_3.jpg>;  rel="preload"; as="image";
+Link: <//yastatic.net/s3/home/new-year-feed/promo/connect_big_2.png>;  rel="preload"; as="image";
+Link: <https://yastatic.net/s3/home-static/_/G/R/DjanaSRmYfqImcweiqL5jjghI.js>;  rel="preload"; as="script"; crossorigin="anonymous";
+Link: <https://yastatic.net/react/18.2.0/react-with-dom.min.js>;  rel="preload"; as="script"; crossorigin="anonymous";
+NEL: {"report_to": "network-errors", "max_age": 100, "success_fraction": 0.001, "failure_fraction": 0.1}
+P3P: policyref="/w3c/p3p.xml", CP="NON DSP ADM DEV PSD IVDo OUR IND STP PHY PRE NAV UNI"
+Report-To: { "group": "network-errors", "max_age": 100, "endpoints": [{"url": "https://dr.yandex.net/nel", "priority": 1}, {"url": "https://dr2.yandex.net/nel", "priority": 2}]}
+Reporting-Endpoints: default="https://ya.ru/portal/front/reports/?slots&region=20679&reqid=1703940509777617-13636189305501119353-balancer-l7leveler-kubr-yp-vla-123-BAL-9240&dc=sas&page=desktop.yaru&enableOtherTypes=0"
+Set-Cookie: yandex_gid=20679; Path=/; Domain=ya.ru; Expires=Mon, 29 Jan 2024 12:48:29 GMT
+Set-Cookie: yp=4294967295.skin.s#1706532509.ygu.1; Path=/; Domain=ya.ru; Expires=Tue, 27 Dec 2033 12:48:29 GMT
+Set-Cookie: is_gdpr=0; Path=/; Domain=.ya.ru; Expires=Mon, 29 Dec 2025 12:48:29 GMT
+Set-Cookie: is_gdpr_b=CIvnAxC34gEoAg==; Path=/; Domain=.ya.ru; Expires=Mon, 29 Dec 2025 12:48:29 GMT
+Set-Cookie: _yasc=QMFP571kBtaN/a5sNIO8zPM4NVSm8jnIndxtdxfI7P83E3rPEmS3w4AXaFi03EuOoCI=; domain=.ya.ru; path=/; expires=Tue, 27 Dec 2033 12:48:29 GMT; secure
+Set-Cookie: i=/N9J0nstVGFV08djxwqBPULZhHO+77YEUEMoSd+VokfwetxMCAla+0YcT0/G8nY7C3JzD0k1l8j+89khSp/fmbR80Zk=; Expires=Mon, 29-Dec-2025 12:48:29 GMT; Domain=.ya.ru; Path=/; Secure; HttpOnly
+Set-Cookie: yandexuid=6011193531703940509; Expires=Mon, 29-Dec-2025 12:48:29 GMT; Domain=.ya.ru; Path=/; Secure
+Set-Cookie: yashr=1481100251703940509; Path=/; Domain=.ya.ru; Expires=Sun, 29 Dec 2024 12:48:29 GMT; Secure; HttpOnly
+Transfer-Encoding: chunked
+Vary: Cookie,Accept-Language,Accept-Encoding
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-Yandex-Req-Id: 1703940509777617-13636189305501119353-balancer-l7leveler-kubr-yp-vla-123-BAL-9240
+
